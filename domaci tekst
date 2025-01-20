@@ -1,0 +1,13 @@
+1. Da se gradovi izvlace iz baze
+-> MIGRATION
+
+2.ADMIN: Dodavanje gradova i temperatura...
+-> Migracija i model "CityTemperatures"
+
+    *id,city,temperature, created_at, updated_at
+
+3. Rute:
+-/admin/cities -> PRIKAZ sve gradove ->Model: CityTemperaturesModel
+-/admin/add-city -> DODAVANJE gradova  i temperatura -> validacija, Model: CityTemperaturesModel::create
+-/admin/cities/{city} -> EDIT gradova i temperatura, validacija, Model:CityTemperaturesModel::update
+-/admin/cities/{city}/delete -> DELETE
