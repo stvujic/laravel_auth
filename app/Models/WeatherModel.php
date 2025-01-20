@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CityTemperaturesModel extends Model
+class WeatherModel extends Model
 {
     protected $table = 'weather';
 

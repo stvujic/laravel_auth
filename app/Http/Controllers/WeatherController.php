@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CityTemperaturesModel;
+use App\Models\WeatherModel;
 use Illuminate\Http\Request;
 
 class WeatherController extends Controller
 {
     public function index()
     {
-        $prognoza = CityTemperaturesModel::all();
+        $prognoza = WeatherModel::all();
 
         return view("weather", compact("prognoza"));
     }
