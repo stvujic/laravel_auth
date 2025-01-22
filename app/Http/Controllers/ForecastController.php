@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class ForecastController extends Controller
 {
     public function index($city)
@@ -14,7 +12,7 @@ class ForecastController extends Controller
         ];
 
         $city = strtolower($city);
-        
+
         if(!array_key_exists($city, $forecasts))
         {
             die("City $city does not exist.");
