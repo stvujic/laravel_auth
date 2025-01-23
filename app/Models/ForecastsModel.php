@@ -12,8 +12,11 @@ class ForecastsModel extends Model
         'city_id',
         'temperature',
         'forecast_date',
+        'weather_type',
+        'probability',
     ];
 
+    const WEATHERS = ['rainy', 'sunny', 'snowy'];
     public function city()
     {
         return $this->hasOne(CitiesModel::class, 'id', 'city_id');
