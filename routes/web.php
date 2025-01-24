@@ -4,8 +4,10 @@ use App\Http\Controllers\AdminForecastsController;
 use App\Http\Controllers\AdminWeatherController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ForecastController;
+use App\Http\Controllers\ForecastsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WeatherController;
+use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/home', function () {
@@ -21,11 +23,7 @@ Route::get('/contact', function () {
 });
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
+Route::view('/', 'welcome');
 
 Route::get("/prognoza", [WeatherController::class, "index"]);
 
@@ -38,15 +36,15 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
     Route::post('/cities/{id}/save', [CityController::class, 'saveCity']);
 });
 
-Route::get("/forecast/{city:name}", [ForecastController::class, "index"]);
+Route::get("/forecast/search", [ForecastsController::class, "search"])->name("forecast.search");
+Route::get("/forecast/{city:name}", [ForecastController::class, "index"])->name("forecast.permalink");
 
-Route::view('/admin/weather', 'admin.weather_index');
-Route::post('/admin/weather/update', [AdminWeatherController::class, 'update'])->name("weather.update");
-
-Route::view("/admin/forecasts", "admin.forecasts_index");
-Route::post("/admin/forecasts/create", [AdminForecastsController::class, "create"])->name("forecasts.create");
-
-
+Route::prefix("/admin")->middleware(AdminCheckMiddleware::class)->group(function () {
+    Route::view('/weather', 'admin.weather_index');
+    Route::post('/weather/update', [AdminWeatherController::class, 'update'])->name("weather.update");
+    Route::view("/forecasts", "admin.forecasts_index");
+    Route::post("/forecasts/create", [AdminForecastsController::class, "create"])->name("forecasts.create");
+});
 
 
 Route::get('/dashboard', function () {
