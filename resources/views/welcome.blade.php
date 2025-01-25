@@ -2,6 +2,10 @@
 
 @section("content")
 
+    @foreach($userFavourites as $userFavourite)
+       <p>{{$userFavourite->city->name}}-{{$userFavourite->city->todaysForecast->temperature}}</p>
+    @endforeach
+
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="text-center">
 
