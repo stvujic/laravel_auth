@@ -26,17 +26,26 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        $city= $this->argument('city');
-        $response = Http::get("https://api.weatherapi.com/v1/current.json", [
-            "key" => "5978dfd76a9e4161afb104749243012",
-            "q" => $city,
+
+//        $response = Http::get("https://api.weatherapi.com/v1/current.json", [
+//            "key" => "5978dfd76a9e4161afb104749243012",
+//            "q" => $city,
+//            "aqi" => "no",
+//        ]);
+
+        $response= Http::get("https://api.weatherapi.com/v1/forecast.json", [
+            "key" => env("WEATHER_API_KEY"),
+            "q" => $this->argument('city'),
             "aqi" => "no",
+            "days" =>1,
         ]);
+
+        dd($response->json());
+
         $jsonResponse = $response->json();
         if(isset($jsonResponse["error"]))
         {
             $this->output->error($jsonResponse["error"]["message"]);
         }
-        dd($jsonResponse);
     }
 }
