@@ -12,8 +12,11 @@ class ForecastHelper
     ];
     public static function getIconByWeatherType($type)
     {
-        $icon = self::WEATHER_ICONS[$type];
-        return $icon;
+        if(in_array($type, self::WEATHER_ICONS))
+        {
+            return self::WEATHER_ICONS[$type];
+        }
+        return "fa-sun";
     }
     public static function getColorByTemperature($temperature)
     {
